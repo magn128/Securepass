@@ -6,11 +6,11 @@ conn = sqlite3.connect('test.db')
 c = conn.cursor()
 
 # Create new table
-def createTable(db_name):
+def createTable(db_name, firstRow, secondRow):
     c.execute("""CREATE TABLE :db_name(
-        name text,
-        password text
-        )""", {"db_name": db_name})
+        :firstRow text,
+        :secondRow text
+        )""", {"db_name": db_name, "firstRow": firstRow, "secondRow": secondRow})
 # Insert values into table
 def insert(name, password):
     c.execute("INSERT INTO login VALUES (:name, :password)", {"name": name, "password": password})
