@@ -25,7 +25,9 @@ def start():
     ]
     return start
 
+
 # Create - lag ny database
+
 def create():
     create = [
         #row01
@@ -38,6 +40,7 @@ def create():
     return create
 
 # Add - add ny kategori
+
 def add():
     add = [
         #row01
@@ -49,11 +52,21 @@ def add():
         ]
     return add
 
-window = sg.Window('SecurePass', main())()
+window = sg.Window('SecurePass', start())
 
 while True:
     event, values = window.read()
     print(event, values)
     if event in (None, 'exit'):
         break
+
+    if event == 'Create database':
+        window.close()
+        window2 = sg.Window('SecurePass', create())
+        while True:
+            event, values = window.read()
+            print(event, values)
+            if event in (None, 'exit'):
+                break
+
 window.close()
