@@ -1,6 +1,10 @@
+# Import
 import PySimpleGUI as sg
+import sqlite3
 
+# Looks and feels
 sg.theme('BluePurple')
+
 # Main - hovedside
 def main():
     main = [
