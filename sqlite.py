@@ -1,7 +1,7 @@
 import sqlite3
 
 # Connect to database or create new
-conn = sqlite3.connect('test.db')
+conn = sqlite3.connect("name")
 # Cursor to execute commands
 c = conn.cursor()
 
