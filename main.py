@@ -13,7 +13,7 @@ sg.theme('BluePurple')
 def main():
     main = [
         #row01
-        [sg.Frame('',[[sg.Text('Securepass', justification='center', size=(84, 1), font=(15))]])],
+        [sg.Frame('',[[sg.Text('Securepass', justification='center', size=(87, 1), font=(15))]])],
         #row02
         [sg.Frame('',[[sg.Text('Categories', justification='center', size=(20, 20))]]),
         sg.Frame('',[[sg.Text('Login info', size=(96, 20))]])
