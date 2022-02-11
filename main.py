@@ -31,6 +31,8 @@ def main():
         [sg.Frame('',[[sg.Text('Categories', justification='center', size=(20, 20))]]),
         sg.Frame('',[[sg.Text('Login info', size=(96, 20))]])
         ]
+        [sg.Button('Create Category'),
+        sg.Button('Add login')]
     ]
     return main
 # Start - startside
@@ -82,7 +84,7 @@ password = '123'
 
 
 application = key_gen_1()
-window = sg.Window('SecurePass', start())
+window = sg.Window('SecurePass', main())
 
 def login_func():
     global window, window2, window3, username, password
