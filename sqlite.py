@@ -5,8 +5,16 @@ conn = sqlite3.connect('test.db')
 # Cursor to execute commands
 c = conn.cursor()
 
+
+def createcategoryTable(db_name, firstRow, secondRow):
+     c.execute("""CREATE TABLE :db_name(
+        :firstRow text,
+        :secondRow text
+        )""", {"db_name": db_name, "firstRow": firstRow, "secondRow": secondRow})
+def category(name):
+    c.execute("INSERT INTO login VALUES (:name)", {"name": name})
 # Create new table
-def createTable(db_name, firstRow, secondRow):
+def createloginTable(db_name, firstRow, secondRow):
     c.execute("""CREATE TABLE :db_name(
         :firstRow text,
         :secondRow text

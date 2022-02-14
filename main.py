@@ -4,6 +4,7 @@ import os
 import sys
 import ctypes
 import random
+from sqlite import insert 
 
 
 def test_func():
@@ -29,8 +30,7 @@ def main():
         [sg.Frame('',[[sg.Text('Securepass', justification='center', size=(87, 1), font=(15))]])],
         #row02
         [sg.Frame('',[[sg.Text('Categories', justification='center', size=(20, 20))]]),
-        sg.Frame('',[[sg.Text('Login info', size=(96, 20))]])
-        ]
+        sg.Frame('',[[sg.Text('Login info', size=(96, 20))]])],
         [sg.Button('Create Category'),
         sg.Button('Add login')]
     ]
@@ -109,6 +109,8 @@ def login_func():
             window2 = sg.Window('SecurePass', create())
             run_create_win = True
             break
+
+        
     
     if run_create_win:
         create_func()
@@ -128,6 +130,11 @@ def main_func():
         event3, values3 = window3.read()
         if event3 in (None, 'exit'):
             break
+        if event3 == 'add_login':
+            
+            
+            break
+
 
 
 
