@@ -1,20 +1,19 @@
 import sqlite3
 
 # Connect to database or create new
-conn = sqlite3.connect('test.db')
+conn = sqlite3.connect('test1.db')
 # Cursor to execute commands
 c = conn.cursor()
 
 
-def createcategoryTable(db_name, firstRow, secondRow):
-     c.execute("""CREATE TABLE :db_name(
-        :firstRow text,
-        :secondRow text
-        )""", {"db_name": db_name, "firstRow": firstRow, "secondRow": secondRow})
+def createcategoryTable(c, db_name, firstRow):
+     #c.execute("CREATE TABLE :db_name(:firstRow text)", {'db_name': db_name, 'firstRow': firstRow})
+     c.execute(f"CREATE TABLE :{db_name}(:{firstRow} text)")
+
 def category(name):
     c.execute("INSERT INTO login VALUES (:name)", {"name": name})
 # Create new table
-def createloginTable(db_name, firstRow, secondRow):
+def createloginTable(c, db_name, firstRow, secondRow):
     c.execute("""CREATE TABLE :db_name(
         :firstRow text,
         :secondRow text

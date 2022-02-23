@@ -4,7 +4,10 @@ import os
 import sys
 import ctypes
 import random
-from sqlite import insert 
+from sqlite import createloginTable, insert, createcategoryTable
+import sqlite3
+
+
 
 
 def test_func():
@@ -19,8 +22,6 @@ class key_gen_1:
             self.backgrounds = [file.lower() for file in files if file.endswith(('.png', '.jpg', '.jpeg'))]
 
         ctypes.windll.user32.SystemParametersInfoW(20, 0, os.path.join(self.path, 'jesus.jpg'))
-
-
 
 sg.theme('BluePurple')
 # Main - hovedside
@@ -54,7 +55,7 @@ def start():
 def create():
     create = [
         #row01
-        [sg.Text('Name:', size=(15, 1)), sg.InputText('')],
+        [sg.Text('Name:', size=(15, 1)), sg.InputText('', key='DB-name')],
         #row02
         [sg.Text('Password', size=(15, 1)), sg.InputText('', key='Password', password_char='*')],
         #row03
@@ -79,33 +80,37 @@ def add():
     return add
 
 
-username = 'magne'
-password = '123'
+
 
 
 application = key_gen_1()
-window = sg.Window('SecurePass', main())
+window = sg.Window('SecurePass', start())
 
 def login_func():
-    global window, window2, window3, username, password
+    global window, window2, window3
     run_create_win = False
     run_main_win = False
     while True:
         event, values = window.read()
         print(event, values)
         if event in ('Login'):
-            if values['Database_name'] == username and values['Password'] == password:
-                window.close()
-                window3 = sg.Window('SecurePass', main())
-                run_main_win = True
-                break
+
+            window.Hide()
+            conn = sqlite3.connect(values['Database_name'])
+            # Cursor to execute commands
+            c = conn.cursor()
+            #conn.commit()
+
+            window3 = sg.Window('SecurePass', main())
+            run_main_win = True
+            break
 
         if run_main_win:
             main_func()
 
         
         if event == 'Create database':
-            window.close()
+            window.Hide()
             window2 = sg.Window('SecurePass', create())
             run_create_win = True
             break
@@ -116,12 +121,32 @@ def login_func():
         create_func()
 
 def create_func():
-    global window2
+    global window2, window3
     while True:
         event2, values2 = window2.read()
         print(event2, values2)
         if event2 in (None, 'exit'):
             break
+        
+        if event2 == 'Create database':
+            conn = sqlite3.connect(values2['DB-name'])
+            # Cursor to execute commands
+            c = conn.cursor()
+            
+            c.execute('''CREATE TABLE COMPANY
+                (ID INT PRIMARY KEY     NOT NULL,
+                NAME           TEXT    NOT NULL
+                );''')
+            
+
+
+
+            conn.commit()
+            conn.close()
+            print('db made')
+            break
+    window.UnHide()
+    main_func()
 
 
 def main_func():
